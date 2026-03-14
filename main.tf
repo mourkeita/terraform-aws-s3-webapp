@@ -42,7 +42,6 @@ resource "aws_s3_bucket_acl" "bucket" {
   ]
   bucket = aws_s3_bucket.bucket.id
 
-  acl = "public-read"
 }
 
 resource "aws_s3_bucket_policy" "policy" {
