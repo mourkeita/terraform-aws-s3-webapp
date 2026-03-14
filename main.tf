@@ -35,15 +35,6 @@ resource "aws_s3_bucket_website_configuration" "bucket" {
   }
 }
 
-resource "aws_s3_bucket_acl" "bucket" {
-  depends_on = [
-    aws_s3_bucket_public_access_block.bucket,
-    aws_s3_bucket_ownership_controls.bucket,
-  ]
-  bucket = aws_s3_bucket.bucket.id
-
-}
-
 resource "aws_s3_bucket_policy" "policy" {
   bucket = aws_s3_bucket.bucket.id
   policy = <<EOF
@@ -67,7 +58,6 @@ EOF
 }
 
 resource "aws_s3_object" "webapp" {
-  acl          = "public-read"
   key          = "index.html"
   bucket       = aws_s3_bucket.bucket.id
   content      = file("${path.module}/assets/index.html")
